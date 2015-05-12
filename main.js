@@ -1,10 +1,11 @@
 /**
  * Created by nikolavujanic on 5/5/15.
  */
-var angularApp = angular.module('angularAuth', ['ui.router', 'ui.bootstrap.modal']);
+var angularApp = angular.module('angularAuth', ['ui.router', 'ui.bootstrap.modal', 'facebook']);
 
-angularApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+angularApp.config(function($stateProvider, $urlRouterProvider, $httpProvider, FacebookProvider) {
 
+    FacebookProvider.init('581844348584751');
     $urlRouterProvider.otherwise("/home");
     $stateProvider
         .state("home", {
@@ -126,4 +127,37 @@ angularApp.controller('LoginModalCtrl', function ($scope/*, $UsersApi*/) {
         });
     };
 
+});
+
+angularApp.controller('mainCtrl', function ($scope, Facebook) {
+    $scope.loginStatus = 'disconnected';
+    $scope.facebookIsReady = false;
+    $scope.user = null;
+    $scope.login = function () {
+        Facebook.login(function(response) {
+            $scope.loginStatus = response.status;
+        });
+    };
+    $scope.removeAuth = function () {
+        Facebook.api({
+            method: 'Auth.revokeAuthorization'
+        }, function(response) {
+            Facebook.getLoginStatus(function(response) {
+                $scope.loginStatus = response.status;
+            });
+        });
+    };
+    $scope.api = function () {
+        Facebook.api('/me', function(response) {
+            $scope.user = response;
+        });
+    };
+    $scope.$watch(function() {
+            return Facebook.isReady();
+        }, function(newVal) {
+            if (newVal) {
+                $scope.facebookIsReady = true;
+            }
+        }
+    );
 });

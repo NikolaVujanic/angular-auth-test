@@ -8,6 +8,9 @@
     <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/bower_components/ui-bootstrap/src/modal/modal.js"></script>
+
+    <script src="app/bower_components/angular-facebook/lib/angular-facebook.js"></script>
+
     <script src="main.js"></script>
     <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="style.css"/>
@@ -93,6 +96,14 @@
                 <!--</ul>-->
             <!--</div>-->
         <!--</div>-->
+    </div>
+    <div ng-controller="mainCtrl">
+        <button type="button" id="login" ng-click="login()">login</button>
+        <button type="button" id="api" ng-click="api()">api user data call</button>
+        <button type="button" id="remove_auth" ng-click="removeAuth()">remove auth</button>
+        <pre>isReady: <span id="is_ready" ng-bind="facebookIsReady"></span></pre>
+        <pre>status: <span id="login_status" ng-bind="loginStatus"></span></pre>
+        <pre>username: <span id="api_first_name" ng-bind="user.first_name"></span></pre>
     </div>
 </body>
 </html>
