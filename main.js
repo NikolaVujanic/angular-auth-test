@@ -11,13 +11,13 @@ angularApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             url: "/home",
             template: "<h2>Home</h2>"
         })
-        .state("state1", {
-            url: "/state1",
-            templateUrl: "partials/state1.html"
+        .state("about", {
+            url: "/about",
+            templateUrl: "partials/about.html"
         })
-        .state("state1.list", {
+        .state("about.list", {
             url: "/list",
-            templateUrl: "partials/state1.list.html",
+            templateUrl: "partials/about.list.html",
             controller: function($scope) {
                 $scope.items = ['angular', 'react', 'ember', 'knockout', 'extjs']
             }
@@ -35,6 +35,14 @@ angularApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         .state("app.dashboard", {
             //url: "/dashboard",
             //templateUrl: "partials/app.dashboard.html"
+        })
+        .state("profile", {
+            url: "/profile",
+            template: "<h1>Profile</h1>"
+        })
+        .state("stats", {
+            url: "/stats",
+            template: "<h1>Stats</h1>"
         });
 
     $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
