@@ -1,5 +1,6 @@
 body {
     margin-top: 70px;
+    background: #dcdcdc;
 }
 
 ul {
@@ -20,4 +21,12 @@ ul {
 }
 .side-label {
     text-anchor: end;
+}
+
+.fb-images li {
+    display: inline-block;
+}
+
+.fb-images li img {
+    width: 100px;
 }

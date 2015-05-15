@@ -152,6 +152,23 @@ angularApp.controller('mainCtrl', function ($scope, Facebook) {
             $scope.user = response;
         });
     };
+    $scope.getCoverImg = function () {
+        Facebook.api('/me?fields=cover', function(response) {
+            $scope.cover = response.cover.source;
+        });
+    }
+    $scope.getImages = function () {
+        Facebook.api('/me?fields=albums{photos{images{source}}}', function(response) {
+            $scope.imgArray = [];
+            for (i=0;i<response.albums.data.length;i++) {
+                var album = response.albums.data[i];
+                for (j=0;j<album.photos.data.length;j++) {
+                    var albumPhoto = album.photos.data[j];
+                    $scope.imgArray.push(albumPhoto.images[0].source);
+                }
+            }
+        });
+    }
     $scope.$watch(function() {
             return Facebook.isReady();
         }, function(newVal) {
